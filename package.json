@@ -1,0 +1,21 @@
+{
+  "name": "@cthru/cmdr",
+  "version": "1.0.0",
+  "description": "A simple solution for single or multi-command node cli scripts.",
+  "main": "src/cmdr/index.js",
+  "scripts": {
+    "test": "node test hello world --capitalize"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "homepage": "https://github.com/nemesarial/bastr",
+  "keywords": [],
+  "author": "Mark Holtzhausen",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "debug": "^4.1.1",
+    "yargs": "^13.2.2"
+  }
+}
