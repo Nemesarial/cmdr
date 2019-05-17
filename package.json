@@ -9,6 +9,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "bin": {
+    "cmdr": "bin/scaffold.js"
+  },
   "homepage": "https://github.com/nemesarial/cmdr",
   "keywords": [],
   "author": "Mark Holtzhausen",

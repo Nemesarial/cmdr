@@ -10,7 +10,7 @@ class Command extends Configurable{
 			command: 'untitled',
 			description: '',
 			selected: false,
-			callback:function(switches){
+			callback:function(switches, Command, App){
 				console.log(`Run Command ${this.config.command} with`, switches)
 			}
 		}, config || {})
@@ -39,7 +39,7 @@ class Command extends Configurable{
 			}
 
 			!found && !arg.isSwitch && this.Param.forEach(myParam=>{
-				if(myParam.value === null){
+				if(myParam.value === null && !found){
 					myParam.value = arg.value 
 					found=true
 				}
@@ -58,7 +58,9 @@ class Command extends Configurable{
 
 	help(indent=4){
 		const out=require('./utils').makeOut(indent)
-		out(`${chalk.blue(`${this.config.command} ${(this.Argument.length + this.Flag.length) ? `[OPTIONS]` :'' } ${this.Param.map(param=>`<${param.config.name}>`).join(` `)}`)}`)
+		out
+			(`${chalk.blue(`${this.config.command} ${(this.Argument.length + this.Flag.length) ? `[OPTIONS]` :'' } ${this.Param.map(param=>`<${param.config.name}>`).join(` `)}`)}`)
+			(`    ${this.config.description}`)
 		this.Param.forEach(param=>param.help(indent+4))
 		this.Argument.forEach(arg=>arg.help(indent+4))
 		this.Flag.forEach(flag=>flag.help(indent+4))

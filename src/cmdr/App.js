@@ -1,7 +1,6 @@
 const Configurable = require('./Configurable')
 const chalk = require('chalk')
 const Flag = require('./Flag')
-const makeHelp = require('./help')
 
 const out=require('./utils').makeOut(0)
 
@@ -69,6 +68,10 @@ class App extends Configurable{
 
 		// console.log(makeHelp(this))
 	}
+
+	getCommand(name){
+		return this.Command.find(command=>command.options.command===name)
+	}
 	
 	parse(){
 		const args=require('./args')
@@ -110,13 +113,14 @@ class App extends Configurable{
 			if(cmd){
 				cmd.parse(parsed.command)
 				spec.command={
-					callback: cmd.config.callback.bind(cmd),
+				 	cmd,
 					switches: [...cmd.Flag, ...cmd.Argument, ...cmd.Param].reduce((flags,flag,idx)=>{
 						flags[flag.config.name]=flag.value
 						return flags
 					},{}),
 						
 				}
+				// console.log(parsed.command.arguments)
 			}
 		}
 
@@ -126,12 +130,12 @@ class App extends Configurable{
 	run(){
 		let spec = this.parse()
 		if(spec.command){
-			spec.command.callback(spec.command.switches)
+			spec.command.cmd.config.callback(spec.command.switches,spec.command.cmd, this)
 		}else{
 			if(spec.switches.help){
 				this.help()
 			}else{
-				this.config.callback(spec.switches)
+				this.config.callback(spec.switches, this)
 			}
 		}
 	}

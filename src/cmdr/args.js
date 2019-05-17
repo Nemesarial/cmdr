@@ -64,7 +64,6 @@ class Args{
 				command.arguments.push(varArg)
 			}
 		}
-		
 		return app
 	}
 	
