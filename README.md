@@ -16,7 +16,7 @@ A simple solution for single or multi-command node cli scripts.
 ```{javasript}
 const {App, Param, Flag, Argument} = require('@cthru/cmdr')
 
-const HelloWorld=(options)=>{
+const hello=(options)=>{
 	padding=parseInt(options.padding)
 	out = `${isNaN(padding)?'':Array(padding).join(' ')}Hello ${options.name}`
 	options.capitalize && (out = out.toUpperCase())
