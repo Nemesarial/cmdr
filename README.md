@@ -170,4 +170,4 @@ module.exports = command
  - argument validation
  - `--argument=20` format support, currently only allows `--argument 20` format
  - interactive mode
- - more flexible help generation
+ - ~~more flexible help generation~~

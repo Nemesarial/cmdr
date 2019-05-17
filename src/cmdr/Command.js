@@ -1,4 +1,5 @@
 const Configurable = require('./Configurable')
+const chalk = require('chalk')
 
 
 class Command extends Configurable{
@@ -53,6 +54,14 @@ class Command extends Configurable{
 			args[argument.config.name] = argument.value
 		}
 		return args
+	}
+
+	help(indent=4){
+		const out=require('./utils').makeOut(indent)
+		out(`${chalk.blue(`${this.config.command} ${(this.Argument.length + this.Flag.length) ? `[OPTIONS]` :'' } ${this.Param.map(param=>`<${param.config.name}>`).join(` `)}`)}`)
+		this.Param.forEach(param=>param.help(indent+4))
+		this.Argument.forEach(arg=>arg.help(indent+4))
+		this.Flag.forEach(flag=>flag.help(indent+4))
 	}
 }
 

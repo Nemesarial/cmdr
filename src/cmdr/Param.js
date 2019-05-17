@@ -1,4 +1,6 @@
 
+const chalk = require('chalk')
+
 class Param {
 	constructor(config={}){
 		this.config=Object.assign({
@@ -8,6 +10,14 @@ class Param {
 		}, config || {})
 		
 		this.value = null
+	}
+	
+	help(indent=4){
+		const out=require('./utils').makeOut(indent)
+		out
+			(`${chalk.green(`<${this.config.name}>`)}`)
+			(`    ${this.config.description}`)
+			()
 	}
 }
 

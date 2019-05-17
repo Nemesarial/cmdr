@@ -1,3 +1,5 @@
+const chalk = require('chalk')
+
 class Flag {
 	constructor(config={}){
 		this.config=Object.assign({
@@ -18,6 +20,14 @@ class Flag {
 			return true
 		}
 		return false
+	}
+
+	help(indent=4){
+		const out=require('./utils').makeOut(indent)
+		out
+			(`${chalk.green(`${this.config.short?`-${this.config.short}, `:''}--${this.config.name}`)}`)
+			(`    ${this.config.description}`)
+			()
 	}
 }
 

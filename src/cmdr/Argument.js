@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 
 class Argument{
 	constructor(config={}){
@@ -19,6 +20,15 @@ class Argument{
 		}
 		return false
 	}
+
+	help(indent=4){
+		const out=require('./utils').makeOut(indent)
+		out
+			(`${chalk.green(`${this.config.short?`-${this.config.short}, `:''}--${this.config.name} [${this.config.defaultValue}]`)}`)
+			(`    ${this.config.description}`)
+			()
+	}
+
 }
 
 module.exports=Argument

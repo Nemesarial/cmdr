@@ -1,6 +1,12 @@
 const Configurable = require('./Configurable')
+const chalk = require('chalk')
 const Flag = require('./Flag')
 const makeHelp = require('./help')
+
+const out=require('./utils').makeOut(0)
+
+
+
 
 class App extends Configurable{
 	constructor(config,...artifacts){
@@ -28,7 +34,40 @@ class App extends Configurable{
 	}
 
 	help(){
-		console.log(makeHelp(this))
+		out
+			(`${chalk.green(this.config.name)} ${this.config.version}`)
+			(`   ${this.config.description}`)
+			()
+			(`${chalk.yellow(`USAGE:`)}`)
+			(`   ${this.config.command} ${[...this.Argument, ...this.Flag].length>0?`[OPTIONS] `:``}<COMMAND> [OPTIONS]`)
+			(`   ${this.config.command}`)
+			();
+			
+		if(this.Param.length>0){
+			out(`${chalk.yellow(`PARAMS:`)}`)
+			this.Param.forEach(command=>command.help())
+			out()
+		}
+		
+		if(this.Argument.length>0){
+			out(`${chalk.yellow(`ARGS:`)}`)
+			this.Argument.forEach(command=>command.help())
+			out()
+		}
+		
+		if(this.Flag.length>0){
+			out(`${chalk.yellow(`FLAGS:`)}`)
+			this.Flag.forEach(command=>command.help())
+			out()
+		}
+		
+		if(this.Command.length>0){
+			out(`${chalk.yellow(`COMMANDS:`)}`)
+			this.Command.forEach(command=>command.help())
+			out()
+		}
+
+		// console.log(makeHelp(this))
 	}
 	
 	parse(){
