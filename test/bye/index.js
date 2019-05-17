@@ -1,20 +1,17 @@
-const {App, Param, Flag, Argument} = require('../src/cmdr/index')
+const {Command, Argument, Flag, Param} = require('../../src/cmdr/index')
 
-const hello=(options)=>{
+const bye=(options)=>{
 	padding=parseInt(options.padding)
-	out = `${isNaN(padding)?'':Array(padding).join(' ')}Hello ${options.name}`
+	out = `${isNaN(padding)?'':Array(padding).join(' ')}Goodbye ${options.name}`
 	options.capitalize && (out = out.toUpperCase())
 	console.log(out)
 }
 
-
-const app =  new App(
+const command = new Command(
 	{
-		name : "Hello world test",
-		command: 'test',
-		version: '1.0',
-		description: "This app only exists as a proof of concept",
-		callback: hello
+		command: 'bye',
+		description: 'A simple Bye world app',
+		callback: bye
 	},
 	new Param(
 		{
@@ -39,4 +36,4 @@ const app =  new App(
 	)
 )
 
-app.run()
+module.exports = command

@@ -1,6 +1,6 @@
 {
   "name": "@cthru/cmdr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple solution for single or multi-command node cli scripts.",
   "main": "src/cmdr/index.js",
   "scripts": {
@@ -14,8 +14,6 @@
   "author": "Mark Holtzhausen",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.2",
-    "debug": "^4.1.1",
-    "yargs": "^13.2.2"
+    "chalk": "^2.4.2"
   }
 }

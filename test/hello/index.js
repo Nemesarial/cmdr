@@ -1,17 +1,17 @@
 const {Command, Argument, Flag, Param} = require('../../src/cmdr/index')
 
-const HelloWorld=(options)=>{
+const hello=(options)=>{
 	padding=parseInt(options.padding)
 	out = `${isNaN(padding)?'':Array(padding).join(' ')}Hello ${options.name}`
 	options.capitalize && (out = out.toUpperCase())
 	console.log(out)
 }
 
-const hello = new Command(
+const command = new Command(
 	{
 		command: 'hello',
 		description: 'A simple Hello world app',
-		callback: HelloWorld
+		callback: hello
 	},
 	new Param(
 		{
@@ -36,4 +36,4 @@ const hello = new Command(
 	)
 )
 
-module.exports = hello
+module.exports = command
