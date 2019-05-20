@@ -21,8 +21,19 @@ class Args{
 		process.argv.forEach(this.addArgument.bind(this))	
 	}
 
+	argParse(arg){
+		let eqPos=arg.indexOf('=')
+		if(eqPos<=0 ) return [arg]
+		let sqPos=arg.indexOf('"')
+		let dqPos=arg.indexOf('\'')
+		if((sqPos>=0 && sqPos<eqPos)||(dqPos>=0 && dqPos<eqPos))return [arg]
+    	return [arg.substr(0,eqPos),arg.substr(eqPos+1)]
+	}
 	addArgument(arg){
-		this.args.push(new Arg(arg))
+		let args=this.argParse(arg)
+		args.forEach(arg=>{
+			this.args.push(new Arg(arg))
+		})
 	}
 
 	get pointer(){

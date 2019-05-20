@@ -15,7 +15,8 @@ const app = new App(
 		{
 			command: 'someCommand',
 			callback: someCommand
-		}
+		},
+		new Argument({name:'argument'})
 	)
 )
 
