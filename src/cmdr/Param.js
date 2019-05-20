@@ -6,10 +6,12 @@ class Param {
 		this.config=Object.assign({
 			name:'undefined-param',
 			description : '',
-			validation: ()=>true
+			validation: ()=>true,
+			defaultValue: null
 		}, config || {})
 		
-		this.value = null
+		this.value = this.config.defaultValue
+		this._wasset=false
 	}
 	
 	help(indent=4){

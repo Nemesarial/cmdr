@@ -39,8 +39,9 @@ class Command extends Configurable{
 			}
 
 			!found && !arg.isSwitch && this.Param.forEach(myParam=>{
-				if(myParam.value === null && !found){
+				if(myParam._wasset === false && !found){
 					myParam.value = arg.value 
+					myParam._wasset=true
 					found=true
 				}
 			})

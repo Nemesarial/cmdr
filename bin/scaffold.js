@@ -9,12 +9,13 @@ const create_single=(options, command, app)=>{
 		command.help(0)
 		process.exit(-1)
 	}
-	 let file=path.resolve(process.cwd(),`${options.app}.js`)
-	 let libloc=options['lib-location']
-	 console.log(`Creating ${file}`)
+	let file=path.resolve(process.cwd(),`${options.app}.js`)
+	let libloc=options['lib-location']
+	console.log(`Creating ${file}`)
 	
+	
+	fs.writeFileSync(file,`#!/usr/bin/env node
 
-	 fs.writeFileSync(file,`
 const {App, Command, Param, Argument, Flag} = require('${libloc}')
 
 const callback=(options,command,app)=>{
@@ -27,12 +28,18 @@ const app = new App(
 		command: '${options.app}',
 		description: '',
 		callback
-	}
+	},
+	new Flag({name:'verbose',short:'v'}),
+	new Argument({name: 'title',short:'T', description: 'Example title', defaultValue: 'Untitled'}),
+	new Param({name: 'targetFolder', defaultValue: process.cwd()})
 )
 
 app.run()
 
 `)
+	
+	fs.chmodSync(file,0o765)
+
 }
 
 const create_multi=(options, command, app)=>{
@@ -52,12 +59,21 @@ const create_multi=(options, command, app)=>{
 	 console.log(`Creating ${file}`)
 	
 
-	 fs.writeFileSync(file,`
+	 fs.writeFileSync(file,`#!/usr/bin/env node
+
 const {App, Command, Param, Argument, Flag} = require('${libloc}')
 
-const ${options.command}=(options,command,app)=>{
-	console.log(\`Calling command \${command.config.command} with these options\`,{ options })
-}
+const command_${options.command} = new Command(
+	{
+		command: '${options.command}',
+		callback(options,command,app){
+			console.log(\`Calling command \${command.config.command} with these options\`,{ options })
+		}
+	},
+	new Flag({name:'verbose',short:'v'}),
+	new Argument({name: 'title',short:'T', description: 'Example title', defaultValue: 'Untitled'}),
+	new Param({name: 'targetFolder', defaultValue: process.cwd()})
+)
 
 const app = new App(
 	{
@@ -65,17 +81,13 @@ const app = new App(
 		command: '${options.app}',
 		description: '',
 	},
-	new Command(
-		{
-			command: '${options.command}',
-			callback: ${options.command}
-		}
-	)
+	command_${options.command}
 )
 
 app.run()
-
 `)
+
+	fs.chmodSync(file,0o765)
 }
 
 
@@ -109,6 +121,10 @@ const app =  new App(
 			description: 'Create a multi-command app in the current folder',
 			callback: create_multi
 		},
+		new Argument({
+			name: 'init',
+			description: 'install @cthru/cmdr using npm'
+		}),
 		new Param({
 			name: 'app',
 			description: 'Name of the app (and the file)'
