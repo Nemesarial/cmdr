@@ -10,6 +10,14 @@ A simple solution for single or multi-command node cli scripts.
 # Description
 `cmdr` is a utility to make it easy to create cli apps with command line parsing
 
+## Scaffolding
+To get going quickly with a new cli command:
+ - `npx @cthru/cmdr create:single --init <command>` for a single command with
+   npm init and dependency installation
+ - `npx @cthru/cmdr create:multi --init <app> <command>` for a multi command
+   app with npm init and dependency installation
+
+
 ## Examples
 
 ### Single-command app
@@ -168,6 +176,6 @@ module.exports = command
 
 ## TODO
  - argument validation
- - `--argument=20` format support, currently only allows `--argument 20` format
+ - ~~`--argument=20` format support, currently only allows `--argument 20` format~~
  - interactive mode
  - ~~more flexible help generation~~

@@ -30,7 +30,12 @@ const create_single=(options, command, app)=>{
 
 const {App, Command, Param, Argument, Flag} = require('${libloc}')
 
-const callback=(options,command,app)=>{
+const callback=(options,app)=>{
+	if(!options.targetFolder){
+		console.log("targetFolder is required")
+		app.help()
+		process.exit(-1)
+	}
 	console.log(\`Calling command \${command.config.command} with these options\`,{ options })
 }
 
@@ -43,7 +48,7 @@ const app = new App(
 	},
 	new Flag({name:'verbose',short:'v'}),
 	new Argument({name: 'title',short:'T', description: 'Example title', defaultValue: 'Untitled'}),
-	new Param({name: 'targetFolder', defaultValue: process.cwd()})
+	new Param({name: 'targetFolder', defaultValue: null})
 )
 
 app.run()
@@ -55,7 +60,6 @@ app.run()
 }
 
 const create_multi=(options, command, app)=>{
-	console.log({options})
 	if(!options.app){
 		console.log('<app> is required')
 		command.help(0)

@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3.0
+## 1.3.1
  - can do `npx @cthru/cmdr create:[single|multi] --init ...` to do npm init and
    dep management in the folder.
 

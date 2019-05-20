@@ -31,11 +31,16 @@ class App extends Configurable{
 		this.rawArgs=process.argv.slice(2)
 		return this
 	}
-
-	help(){
+	
+	appHeader(){
 		out
 			(`${chalk.green(this.config.name)} ${this.config.version}`)
 			(`   ${this.config.description}`)
+	}
+
+	help(){
+		this.appHeader()
+		out
 			()
 			(`${chalk.yellow(`USAGE:`)}`)
 			(`   ${this.config.command} ${[...this.Argument, ...this.Flag].length>0?`[OPTIONS] `:``}<COMMAND> [OPTIONS]`)
@@ -66,7 +71,6 @@ class App extends Configurable{
 			out()
 		}
 
-		// console.log(makeHelp(this))
 	}
 
 	getCommand(name){

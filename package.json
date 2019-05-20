@@ -1,6 +1,6 @@
 {
   "name": "@cthru/cmdr",
-  "version": "1.2.1",
+  "version": "1.3.1",
   "description": "A simple solution for single or multi-command node cli scripts.",
   "main": "src/cmdr/index.js",
   "scripts": {
