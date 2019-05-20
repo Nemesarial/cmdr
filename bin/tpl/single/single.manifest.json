@@ -1,0 +1,6 @@
+{
+	"main.tpl":{
+		"file":"${context.options.app}",
+		"permissions": 501
+	}
+}

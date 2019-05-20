@@ -3,6 +3,7 @@ const {App, Command, Param, Argument, Flag} = require('../src/cmdr/index')
 const path = require('path')
 const fs = require('fs')
 const child_process=require('child_process')
+const {renderTplFile} = require('../src/cmdr/utils')
 
 
 const init = ()=>{
@@ -11,7 +12,7 @@ const init = ()=>{
 		if(err){
 			child_process.execSync('npm init -y')
 		}
-		child_process.execSync('npm install @cthru/cmdr --save',{cwd:process.cwd()})
+		child_process.execSync('npm install @cthru/cmdr --save',{cwd:process.cwd(), stio: 'inherit'})
 	})	
 }
 
@@ -21,41 +22,12 @@ const create_single=(options, command, app)=>{
 		command.help(0)
 		process.exit(-1)
 	}
-	let file=path.resolve(process.cwd(),`${options.app}.js`)
-	let libloc=options['lib-location']
-	console.log(`Creating ${file}`)
+	// let file=path.resolve(process.cwd(),`${options.app}.js`)
+	// let libloc=options['lib-location']
 	
+	renderTplFile(path.resolve(__dirname,'./tpl/single/single.manifest.json'),{options,command,app},process.cwd())
 	
-	fs.writeFileSync(file,`#!/usr/bin/env node
-
-const {App, Command, Param, Argument, Flag} = require('${libloc}')
-
-const callback=(options,app)=>{
-	if(!options.targetFolder){
-		console.log("targetFolder is required")
-		app.help()
-		process.exit(-1)
-	}
-	console.log(\`Calling command \${command.config.command} with these options\`,{ options })
-}
-
-const app = new App(
-	{
-		name: '${options.app}',
-		command: '${options.app}',
-		description: '',
-		callback
-	},
-	new Flag({name:'verbose',short:'v'}),
-	new Argument({name: 'title',short:'T', description: 'Example title', defaultValue: 'Untitled'}),
-	new Param({name: 'targetFolder', defaultValue: null})
-)
-
-app.run()
-
-`)
-	
-	fs.chmodSync(file,0o765)
+	// fs.chmodSync(file,0o765)
 	options.init && init()
 }
 
@@ -70,40 +42,9 @@ const create_multi=(options, command, app)=>{
 		command.help(0)
 		process.exit(-1)
 	}
-	 let file=path.resolve(process.cwd(),`${options.app}.js`)
-	 let libloc=options['lib-location']
-	 console.log(`Creating ${file}`)
+
+	renderTplFile(path.resolve(__dirname,'./tpl/multi/multi.manifest.json'),{options,command,app},process.cwd())
 	
-
-	 fs.writeFileSync(file,`#!/usr/bin/env node
-
-const {App, Command, Param, Argument, Flag} = require('${libloc}')
-
-const command_${options.command} = new Command(
-	{
-		command: '${options.command}',
-		callback(options,command,app){
-			console.log(\`Calling command \${command.config.command} with these options\`,{ options })
-		}
-	},
-	new Flag({name:'verbose',short:'v'}),
-	new Argument({name: 'title',short:'T', description: 'Example title', defaultValue: 'Untitled'}),
-	new Param({name: 'targetFolder', defaultValue: process.cwd()})
-)
-
-const app = new App(
-	{
-		name: '${options.app}',
-		command: '${options.app}',
-		description: '',
-	},
-	command_${options.command}
-)
-
-app.run()
-`)
-
-	fs.chmodSync(file,0o765)
 	options.init && init()
 }
 

@@ -1,0 +1,7 @@
+{
+	"main.tpl":{
+		"file":"${context.options.app}",
+		"permissions": 501
+	},
+	"commands/command.tpl":"commands/command_${context.options.command}.js"
+}
