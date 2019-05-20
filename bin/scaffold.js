@@ -22,12 +22,9 @@ const create_single=(options, command, app)=>{
 		command.help(0)
 		process.exit(-1)
 	}
-	// let file=path.resolve(process.cwd(),`${options.app}.js`)
-	// let libloc=options['lib-location']
 	
 	renderTplFile(path.resolve(__dirname,'./tpl/single/single.manifest.json'),{options,command,app},process.cwd())
-	
-	// fs.chmodSync(file,0o765)
+
 	options.init && init()
 }
 
@@ -66,6 +63,10 @@ const app =  new App(
 		new Param({
 			name: 'app',
 			description: 'Name of the app (and the file)'
+		}),
+		new Flag({
+			name: 'init',
+			description: 'install @cthru/cmdr using npm'
 		}),
 		new Argument({
 			name: 'lib-location',
