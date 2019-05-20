@@ -2,6 +2,18 @@
 const {App, Command, Param, Argument, Flag} = require('../src/cmdr/index')
 const path = require('path')
 const fs = require('fs')
+const child_process=require('child_process')
+
+
+const init = ()=>{
+	let file=path.resolve(process.cwd(),'package.json')
+	fs.access(file, fs.constants.F_OK, (err) => {
+		if(err){
+			child_process.execSync('npm init -y')
+		}
+		child_process.execSync('npm install @cthru/cmdr --save',{cwd:process.cwd()})
+	})	
+}
 
 const create_single=(options, command, app)=>{
 	if(!options.app){
@@ -39,7 +51,7 @@ app.run()
 `)
 	
 	fs.chmodSync(file,0o765)
-
+	options.init && init()
 }
 
 const create_multi=(options, command, app)=>{
@@ -88,6 +100,7 @@ app.run()
 `)
 
 	fs.chmodSync(file,0o765)
+	options.init && init()
 }
 
 
@@ -121,7 +134,7 @@ const app =  new App(
 			description: 'Create a multi-command app in the current folder',
 			callback: create_multi
 		},
-		new Argument({
+		new Flag({
 			name: 'init',
 			description: 'install @cthru/cmdr using npm'
 		}),
