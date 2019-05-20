@@ -1,4 +1,4 @@
-const {Command, Param, Argument, Flag} = require('../${context.options["lib-location"]}')
+const {Command, Param, Argument, Flag} = require('${context.options["lib-location"][0]==='.'?'../':''}${context.options["lib-location"]}')
 
 const command_${context.options.command} = new Command(
 	{
