@@ -154,7 +154,7 @@ class App extends Configurable{
 			if(spec.switches.help){
 				this.help()
 			}else{
-				this.config.callback(spec.switches, this)
+				if(typeof this.config.callback === 'function') this.config.callback(spec.switches, this)
 			}
 		}
 	}
