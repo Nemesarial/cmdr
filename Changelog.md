@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.4.5
+ - Bugfix
+ 
 ## 1.4.4
  - Versioning comes from package.json
  - Added `intercept` for flags to short-circuit functionality
