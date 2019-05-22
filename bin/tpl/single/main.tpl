@@ -8,7 +8,7 @@ const callback=(options,app)=>{
 		app.help()
 		process.exit(-1)
 	}
-	console.log(\`Calling command \${context.command.config.command} with these options\`,{ options })
+	console.log(\`Calling command \${app.config.name} with these options\`,{ options })
 }
 
 const app = new App(

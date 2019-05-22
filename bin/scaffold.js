@@ -51,7 +51,7 @@ const app =  new App(
 	{
 		name : "@cthru/cmdr scaffolding",
 		command: 'cmdr',
-		version: '1.0',
+		version: require('../package.json').version,
 		description: "This app only exists as a proof of concept"
 	},
 	new Command(

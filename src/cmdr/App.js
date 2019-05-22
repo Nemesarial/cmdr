@@ -15,7 +15,7 @@ class App extends Configurable{
 			name: "Untitled Application",
 			version: '1.0',
 			description:"",
-			callback:this.help.bind(this)
+			callback:null
 			
 		}, config ||{})
 		
@@ -24,7 +24,21 @@ class App extends Configurable{
 			new Flag(
 				{
 					name:'help',
-					description: 'View this help.'
+					description: 'View this help.',
+					intercept(app){
+						app.help()
+						process.exit()
+					}
+				}
+			),
+			new Flag(
+				{
+					name:'version',
+					description: 'Show the version information',
+					intercept(app){
+						out((`${chalk.green(app.config.name)} ${app.config.version}`))
+						process.exit()
+					}
 				}
 			)
 		)
@@ -89,7 +103,7 @@ class App extends Configurable{
 			let found=false
 
 			!found && this.Flag.forEach(myFlag=>{
-				if(myFlag.test(arg)) found = true 
+				if(myFlag.test(arg,this)) found = true 
 			})
 
 			!found && argNext && this.Argument.forEach(myArg=>{

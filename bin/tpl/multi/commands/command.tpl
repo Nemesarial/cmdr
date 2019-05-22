@@ -4,7 +4,7 @@ const command_${context.options.command} = new Command(
 	{
 		command: '${context.options.command}',
 		callback(options,command,app){
-			console.log(\`Calling command \${context.command.config.command} with these options\`,{ options })
+			console.log(\`Calling command \${command.config.command} with these options\`,{ options })
 		}
 	},
 	new Flag({name:'verbose',short:'v'}),

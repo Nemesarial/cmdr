@@ -6,17 +6,21 @@ class Flag {
 			name:'undefined-argument',
 			short: null,
 			description : '',
-			validation: ()=>true
+			validation: ()=>true,
+			intercept: null
 		}, config || {})
 		
 		this.value = false
 	}
 
-	test(arg){
+	test(arg,app){
 		let aShort = `-${this.config.short}`
 		let aLong = `--${this.config.name}`
 		if(arg.value===aShort || arg.value === aLong){
 			this.value=true
+			if(typeof this.config.intercept === 'function'){
+				this.config.intercept(app)
+			}
 			return true
 		}
 		return false

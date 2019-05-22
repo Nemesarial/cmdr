@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.4.4
+ - Versioning comes from package.json
+ - Added `intercept` for flags to short-circuit functionality
+ - versioning standard on --version flag
+
 ## 1.4.0
  - Scaffolding has structure
 
