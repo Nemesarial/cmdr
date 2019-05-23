@@ -1,6 +1,6 @@
 {
   "name": "@cthru/cmdr",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "A simple solution for single or multi-command node cli scripts.",
   "main": "src/cmdr/index.js",
   "scripts": {
@@ -13,7 +13,14 @@
     "cmdr": "bin/scaffold.js"
   },
   "homepage": "https://github.com/nemesarial/cmdr",
-  "keywords": ["cli","argv","commander","command","option","parser"], 
+  "keywords": [
+    "cli",
+    "argv",
+    "commander",
+    "command",
+    "option",
+    "parser"
+  ],
   "author": "Mark Holtzhausen",
   "license": "ISC",
   "dependencies": {
