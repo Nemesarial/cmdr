@@ -111,7 +111,7 @@ class App extends Configurable{
 			})
 
 			!found && !arg.isSwitch && this.Param.forEach(myParam=>{
-				if(!myParam.__wasset){
+				if(!myParam._wasset){
 					myParam.value = arg.value 
 					myParam._wasset=true
 					found=true
