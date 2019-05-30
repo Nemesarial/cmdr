@@ -40,6 +40,12 @@ class App extends Configurable{
 						process.exit()
 					}
 				}
+			),
+			new Flag(
+				{
+					name:'interactive',
+					description: 'interactively provide arguments'
+				}
 			)
 		)
 		this.rawArgs=process.argv.slice(2)
